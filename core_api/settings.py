@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -86,22 +86,22 @@ WSGI_APPLICATION = 'core_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-if not DEBUG:
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-    }
+# if not DEBUG:
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+}
 
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DBNAME'),
-            'USER': os.environ.get('DBUSER'),
-            'PASSWORD': os.environ.get('DBPASS'),
-            'HOST': os.environ.get('DBHOST'),
-            'PORT': os.environ.get('DBPORT'),
-        }
-    }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': os.environ.get('DBNAME'),
+#             'USER': os.environ.get('DBUSER'),
+#             'PASSWORD': os.environ.get('DBPASS'),
+#             'HOST': os.environ.get('DBHOST'),
+#             'PORT': os.environ.get('DBPORT'),
+#         }
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
