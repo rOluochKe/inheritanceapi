@@ -13,6 +13,7 @@ import os
 from datetime import timedelta
 from dotenv import load_dotenv
 from pathlib import Path
+import dj_database_url
 
 # Load environment variables from .env file
 load_dotenv()
@@ -85,24 +86,22 @@ WSGI_APPLICATION = 'core_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('DBNAME'),
-#         'USER': os.environ.get('DBUSER'),
-#         'PASSWORD': os.environ.get('DBPASS'),
-#         'HOST': os.environ.get('DBHOST'),
-#         'PORT': os.environ.get('DBPORT'),
-#     }
-# }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'inheritanceapi.db',
+if not DEBUG:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-}
 
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DBNAME'),
+            'USER': os.environ.get('DBUSER'),
+            'PASSWORD': os.environ.get('DBPASS'),
+            'HOST': os.environ.get('DBHOST'),
+            'PORT': os.environ.get('DBPORT'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
